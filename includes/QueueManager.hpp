@@ -2,8 +2,8 @@
 // Created by onihilist on 22/09/2025.
 //
 
-#ifndef QUEUE_HPP
-#define QUEUE_HPP
+#ifndef QUEUEMANAGER_HPP
+#define QUEUEMANAGER_HPP
 #include <any>
 #include <string>
 #include <vector>
@@ -32,4 +32,4 @@ class QueueManager {
 
 };
 
-#endif //QUEUE_HPP
+#endif //QUEUEMANAGER_HPP
