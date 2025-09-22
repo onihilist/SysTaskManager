@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 
-void TaskInfo::createTestTask() {
+TaskInfo TaskInfo::createTestTask() {
     std::thread t([]() {
         std::cout << "printMessage is running" << std::endl;
     });
@@ -21,4 +21,6 @@ void TaskInfo::createTestTask() {
     );
 
     t.join();
+
+    return testTask;
 }

@@ -9,4 +9,6 @@ add_executable(SysTaskThreaded main.cpp
         includes/TaskInfo.hpp
         src/TaskInfo.cpp
         includes/ThreadTaskManager.hpp
-        src/ThreadTaskManager.cpp)
+        src/ThreadTaskManager.cpp
+        includes/RecurrenceParser.hpp
+        src/RecurrenceParser.cpp)

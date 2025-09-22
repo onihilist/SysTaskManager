@@ -26,7 +26,7 @@ class TaskInfo {
         string parentType;
 
     public:
-        static void createTestTask();
+        static TaskInfo createTestTask();
         static void printMessage(const std::string& message) {
             std::cout << message << std::endl;
         }
@@ -55,6 +55,9 @@ class TaskInfo {
               command(command)
         {}
 
+        std::string getRecurrency() {
+            return recurrency;
+        }
 
 };
 
