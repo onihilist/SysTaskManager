@@ -7,4 +7,6 @@ add_executable(SysTaskThreaded main.cpp
         includes/QueueManager.hpp
         src/QueueManager.cpp
         includes/TaskInfo.hpp
-        src/TaskInfo.cpp)
+        src/TaskInfo.cpp
+        includes/ThreadTaskManager.hpp
+        src/ThreadTaskManager.cpp)

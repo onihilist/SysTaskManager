@@ -16,7 +16,6 @@ class QueueManager {
 
     private:
         vector<TaskInfo> taskQueueInfos;
-        vector<thread> taskThreads;
         std::queue<any> taskQueue;
 
     public:
@@ -24,7 +23,9 @@ class QueueManager {
         ~QueueManager();
 
         void setTaskQueueInfos(const vector<vector<string>>& tqn) { taskQueueInfos = tqn; };
+
         vector<vector<string>>& getTaskQueueInfos() { return taskQueueInfos; };
+        string
 
         string detectTaskType(TaskInfo taskInfo);
         void enqueue(const any& task);
