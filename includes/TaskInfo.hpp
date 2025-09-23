@@ -19,11 +19,11 @@ class TaskInfo {
         string name;
         string description;
         string recurrency;
-        string command;
         string priority;
         string parent;
         string type;
         string parentType;
+        string command;
 
     public:
         static TaskInfo createTestTask();

@@ -17,9 +17,16 @@ time_t RecurrenceParser::parseDateTime(const std::string& datetime) {
     std::string timeStr = datetime.substr(datetime.find('[') + 1);
     timeStr = timeStr.substr(0, timeStr.find(']'));
 
-    if (type == "daily") {
+    if (type == "immediate") {
+        std::cout << "Schedule type: " << type << std::endl;
+    } else if (type == "delayed") {
         std::cout << "Schedule type: " << type << std::endl;
         std::cout << "Time: " << timeStr << std::endl;
+    } else if (type == "recurring") {
+        std::cout << "Schedule type: " << type << std::endl;
+        std::cout << "Time: " << timeStr << std::endl;
+    } else {
+
     }
 
     return time(nullptr);
