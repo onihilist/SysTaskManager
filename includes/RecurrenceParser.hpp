@@ -7,10 +7,12 @@
 #include <ctime>
 #include <string>
 
+#include "TaskInfo.hpp"
+
 class RecurrenceParser {
     public:
         static time_t triggerDateTime;
-        static time_t parseDateTime(const std::string& datetime);
+        static time_t parseDateTime(Recurrency& recurrency);
 };
 
 #endif //RECURRENCEPARSER_HPP

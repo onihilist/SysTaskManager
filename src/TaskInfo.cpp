@@ -2,7 +2,16 @@
 #include <iostream>
 #include <thread>
 
-TaskInfo TaskInfo::createTestTask() {
+TaskInfo TaskInfo::createTestTask(
+    const std::string &type,
+    const int days,
+    const int hours,
+    const int minutes,
+    const int seconds) {
+
+    const std::time_t currentTime = time(nullptr);
+    const std::time_t timeToExec = currentTime + (days * hours * minutes * seconds);
+
     std::thread t([]() {
         std::cout << "printMessage is running" << std::endl;
     });
@@ -12,9 +21,13 @@ TaskInfo TaskInfo::createTestTask() {
         t.get_id(),
         "nameTest",
         "",
-        "daily[2:35PM]",
+        Recurrency{
+            type,
+            timeToExec,
+            {""},
+            {""}
+        },
         "high",
-        "null",
         "null",
         "null",
         "null"

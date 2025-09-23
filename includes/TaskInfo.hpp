@@ -9,6 +9,8 @@
 #include <string>
 #include <thread>
 
+#include "Recurrency.hpp"
+
 using namespace std;
 
 class TaskInfo {
@@ -18,7 +20,7 @@ class TaskInfo {
         thread::id thread_id;
         string name;
         string description;
-        string recurrency;
+        Recurrency recurrency;
         string priority;
         string parent;
         string type;
@@ -26,7 +28,12 @@ class TaskInfo {
         string command;
 
     public:
-        static TaskInfo createTestTask();
+        static TaskInfo createTestTask(
+                                       const std::string &type,
+                                       const int days,
+                                       const int hours,
+                                       const int minutes,
+                                       const int seconds);
         static void printMessage(const std::string& message) {
             std::cout << message << std::endl;
         }
@@ -36,10 +43,9 @@ class TaskInfo {
             const std::thread::id thread_id,
             const std::string& name,
             const std::string& description,
-            const std::string& recurrence,
+            const Recurrency& recurrence,
             const std::string& priority,
             const std::string& parent,
-            const std::string& type,
             const std::string& parentType,
             const std::string& command
         )
@@ -50,12 +56,15 @@ class TaskInfo {
               recurrency(recurrence),
               priority(priority),
               parent(parent),
-              type(type),
               parentType(parentType),
               command(command)
         {}
 
-        std::string getRecurrency() {
+        ~TaskInfo() {
+            cout << "TaskInfo (tID: " << thread_id << ") has been destroyed." <<endl;
+        }
+
+        Recurrency &getRecurrency() {
             return recurrency;
         }
 

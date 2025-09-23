@@ -8,25 +8,20 @@
 #include <iostream>
 #include <string>
 
-time_t RecurrenceParser::parseDateTime(const std::string& datetime) {
-    const std::string delimiter = "[";
+#include "../includes/TaskInfo.hpp"
 
-    std::string type = datetime.substr(0, datetime.find(delimiter));
-    std::ranges::transform(type, type.begin(), ::tolower);
+time_t RecurrenceParser::parseDateTime(Recurrency& recurrency) {
 
-    std::string timeStr = datetime.substr(datetime.find('[') + 1);
-    timeStr = timeStr.substr(0, timeStr.find(']'));
-
-    if (type == "immediate") {
-        std::cout << "Schedule type: " << type << std::endl;
-    } else if (type == "delayed") {
-        std::cout << "Schedule type: " << type << std::endl;
-        std::cout << "Time: " << timeStr << std::endl;
-    } else if (type == "recurring") {
-        std::cout << "Schedule type: " << type << std::endl;
-        std::cout << "Time: " << timeStr << std::endl;
+    if (recurrency.getType() == "immediate") {
+        std::cout << "Schedule type: " << recurrency.getType() << std::endl;
+    } else if (recurrency.getType() == "delayed") {
+        std::cout << "Schedule type: " << recurrency.getType() << std::endl;
+        std::cout << "Time: " << recurrency.getTimeForAction()[0] << std::endl;
+    } else if (recurrency.getType() == "recurring") {
+        std::cout << "Schedule type: " << recurrency.getType() << std::endl;
+        std::cout << "Time: " << recurrency.getTimeForAction()[0] << std::endl;
     } else {
-
+        std::cout << "Recurrency is not valid !" << std::endl;
     }
 
     return time(nullptr);
