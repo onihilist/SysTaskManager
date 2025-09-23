@@ -28,12 +28,16 @@ class TaskInfo {
         string command;
 
     public:
-        static TaskInfo createTestTask(
-                                       const std::string &type,
-                                       const int days,
-                                       const int hours,
-                                       const int minutes,
-                                       const int seconds);
+
+        static TaskInfo createTask(
+            const std::string &type,
+            const std::string &name,
+            const std::string &command,
+            const int days,
+            const int hours,
+            const int minutes,
+            const int seconds);
+
         static void printMessage(const std::string& message) {
             std::cout << message << std::endl;
         }

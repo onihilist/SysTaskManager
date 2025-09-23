@@ -5,7 +5,7 @@
 
 int main() {
 
-    TaskInfo task = TaskInfo::createTestTask(
+    TaskInfo task = TaskInfo::createTask(
        "immediate", 0, 2, 0, 0);
     RecurrenceParser::parseDateTime(
         task.getRecurrency());
