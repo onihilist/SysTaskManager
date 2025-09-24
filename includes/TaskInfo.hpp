@@ -38,10 +38,6 @@ class TaskInfo {
             const int minutes,
             const int seconds);
 
-        static void printMessage(const std::string& message) {
-            std::cout << message << std::endl;
-        }
-
         TaskInfo(
             const int id,
             const std::thread::id thread_id,
@@ -70,6 +66,14 @@ class TaskInfo {
 
         Recurrency &getRecurrency() {
             return recurrency;
+        }
+
+        std::string getName() {
+            return name;
+        }
+
+        void setThreadId(const std::thread::id thread_id) {
+            this->thread_id = thread_id;
         }
 
 };

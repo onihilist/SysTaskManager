@@ -4,13 +4,15 @@
 
 #ifndef TASKRUNNER_HPP
 #define TASKRUNNER_HPP
-#include <thread>
+
+#include "../includes/TaskInfo.hpp"
 
 class TaskRunner {
     public:
         TaskRunner();
         ~TaskRunner();
-        void run(std::thread t);
+
+        static std::thread run(TaskInfo &task);
 };
 
 #endif //TASKRUNNER_HPP

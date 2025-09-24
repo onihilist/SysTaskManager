@@ -15,13 +15,9 @@ TaskInfo TaskInfo::createTask(
     const std::time_t timeToExec = currentTime +
         (days * hours * minutes * seconds);
 
-    std::thread t([name]() {
-        std::cout << name << " task is running" << std::endl;
-    });
-
     TaskInfo testTask(
         0,
-        t.get_id(),
+        std::thread::id(0),
         "nameTest",
         "",
         Recurrency{
@@ -33,10 +29,8 @@ TaskInfo TaskInfo::createTask(
         "high",
         "null",
         "null",
-        "null"
+        "ls"
     );
-
-    t.join();
 
     return testTask;
 }
