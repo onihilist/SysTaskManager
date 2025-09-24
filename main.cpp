@@ -10,10 +10,13 @@ int main() {
         "immediate",
         "InitTask",
         "ls",
+        0, 0, 0, 5);
+    TaskInfo task2 = TaskInfo::createTask(
+        "immediate",
+        "UnusedTask",
+        "ls",
         0, 2, 0, 0);
-    RecurrenceParser::parseDateTime(
-        task.getRecurrency());
-    thread t = taskRunner.run(task);
+    taskRunner.isTimeToRun(task);
 
     return 0;
 }

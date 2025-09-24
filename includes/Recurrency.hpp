@@ -27,6 +27,10 @@ class Recurrency {
         daysOfTheWeek(daysOfTheWeek),
         timeForAction(timeForAction) {}
 
+        std::time_t getDatetimeForAction() const {
+            return datetimeForAction;
+        }
+
         std::vector<std::string> getDaysOfTheWeek() {
             return daysOfTheWeek;
         };

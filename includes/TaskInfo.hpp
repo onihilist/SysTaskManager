@@ -61,7 +61,11 @@ class TaskInfo {
         {}
 
         ~TaskInfo() {
-            cout << "TaskInfo (tID: " << thread_id << ") has been destroyed." <<endl;
+            if (thread_id != thread::id()) {
+                cout << "TaskInfo " << name << " (tID: " << thread_id << ") has been destroyed." <<endl;
+            } else {
+                cout << "TaskInfo " << name << " has been destroyed and never used/ran." <<endl;
+            }
         }
 
         Recurrency &getRecurrency() {
@@ -70,6 +74,10 @@ class TaskInfo {
 
         std::string getName() {
             return name;
+        }
+
+        thread::id &getThreadId() {
+            return thread_id;
         }
 
         void setThreadId(const std::thread::id thread_id) {

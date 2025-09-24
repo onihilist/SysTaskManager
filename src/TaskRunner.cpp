@@ -31,3 +31,13 @@ std::thread TaskRunner::run(TaskInfo &task) {
 
     return t;
 };
+
+bool TaskRunner::isTimeToRun(TaskInfo &task) {
+    if (std::time(nullptr) == task.getRecurrency().getDatetimeForAction()) {
+        run(task);
+        return true;
+    } else {
+        std::cout << "Thread (tID: " << task.getThreadId() << ") will run task \"" << task.getName() << "\" in " << task.getRecurrency().getDatetimeForAction() - std::time(nullptr) << std::endl;
+        return false;
+    };
+};

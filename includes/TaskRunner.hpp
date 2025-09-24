@@ -13,6 +13,7 @@ class TaskRunner {
         ~TaskRunner();
 
         static std::thread run(TaskInfo &task);
+        static bool isTimeToRun(TaskInfo &task);
 };
 
 #endif //TASKRUNNER_HPP

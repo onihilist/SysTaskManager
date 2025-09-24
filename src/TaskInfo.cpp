@@ -18,7 +18,7 @@ TaskInfo TaskInfo::createTask(
     TaskInfo testTask(
         0,
         std::thread::id(0),
-        "nameTest",
+        name,
         "",
         Recurrency{
             type,
@@ -29,7 +29,7 @@ TaskInfo TaskInfo::createTask(
         "high",
         "null",
         "null",
-        "ls"
+        command
     );
 
     return testTask;
