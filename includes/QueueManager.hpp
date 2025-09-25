@@ -4,11 +4,8 @@
 
 #ifndef QUEUEMANAGER_HPP
 #define QUEUEMANAGER_HPP
-#include <any>
-#include <string>
-#include <vector>
+
 #include <queue>
-#include <thread>
 
 #include "TaskInfo.hpp"
 
@@ -17,21 +14,17 @@ using namespace std;
 class QueueManager {
 
     private:
-        vector<TaskInfo> taskQueueInfos;
-        std::queue<any> taskQueue;
+        std::queue<TaskInfo> taskQueue;
 
     public:
-        explicit QueueManager(int queueSize = 0, vector<string> queueName = vector<string>());
+        QueueManager();
         ~QueueManager();
 
-        void setTaskQueueInfos(const vector<vector<string>>& tqn) { taskQueueInfos = tqn; };
-
-        vector<vector<string>>& getTaskQueueInfos() { return taskQueueInfos; };
-        string
-
-        string detectTaskType(TaskInfo taskInfo);
-        void enqueue(const any& task);
-        void dequeue();
+        bool addTaskToQueue(TaskInfo task);
+        bool removeTaskFromQueue();
+        std::queue<TaskInfo> getTaskQueue() {
+            return taskQueue;
+        };
 
 };
 
