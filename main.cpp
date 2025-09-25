@@ -5,7 +5,9 @@
 #include "includes/TaskRunner.hpp"
 
 int main() {
+
     TaskRunner taskRunner;
+
     TaskInfo task = TaskInfo::createTask(
         "immediate",
         "InitTask",
@@ -16,7 +18,9 @@ int main() {
         "UnusedTask",
         "ls",
         0, 2, 0, 0);
-    taskRunner.isTimeToRun(task);
+
+    std::thread t = taskRunner.run(task);
+    t.join();
 
     return 0;
 }

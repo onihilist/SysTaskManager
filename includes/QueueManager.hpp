@@ -10,6 +10,8 @@
 #include <queue>
 #include <thread>
 
+#include "TaskInfo.hpp"
+
 using namespace std;
 
 class QueueManager {

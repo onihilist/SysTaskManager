@@ -62,9 +62,9 @@ class TaskInfo {
 
         ~TaskInfo() {
             if (thread_id != thread::id()) {
-                cout << "TaskInfo " << name << " (tID: " << thread_id << ") has been destroyed." <<endl;
+                cout << "TaskInfo \"" << name << "\" (tID: " << thread_id << ") has been destroyed." <<endl;
             } else {
-                cout << "TaskInfo " << name << " has been destroyed and never used/ran." <<endl;
+                cout << "TaskInfo \"" << name << "\" has been destroyed and never used/ran." <<endl;
             }
         }
 

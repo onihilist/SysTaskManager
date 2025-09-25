@@ -13,7 +13,10 @@ TaskInfo TaskInfo::createTask(
 
     const std::time_t currentTime = time(nullptr);
     const std::time_t timeToExec = currentTime +
-        (days * hours * minutes * seconds);
+                        days*24*3600
+                      + hours*3600
+                      + minutes*60
+                      + seconds;
 
     TaskInfo testTask(
         0,

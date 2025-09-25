@@ -17,27 +17,32 @@ TaskRunner::~TaskRunner() {
 }
 
 std::thread TaskRunner::run(TaskInfo &task) {
+    std::string name = task.getName();
+    std::time_t scheduled = task.getRecurrency().getDatetimeForAction();
 
-    std::mutex mtx;
-    std::string name = task.getName();;
+    std::thread t([name, &task, scheduled] {
+        if (const std::time_t now = std::time(nullptr); scheduled > now) {
+            std::this_thread::sleep_for(std::chrono::seconds(scheduled - now));
+        }
 
-    mtx.unlock();
-
-    std::thread t([name, &t, &task] {
-        task.setThreadId(t.get_id());
-        std::cout << "Thread (tID: " << t.get_id() << ") is running task " << name << "..." << std::endl;
+        task.setThreadId(std::this_thread::get_id());
+        std::cout << "Thread (tID: " << std::this_thread::get_id()
+                  << ") is running task " << name << "..." << std::endl;
     });
-    t.join();
 
     return t;
-};
+}
 
 bool TaskRunner::isTimeToRun(TaskInfo &task) {
-    if (std::time(nullptr) == task.getRecurrency().getDatetimeForAction()) {
-        run(task);
+    const std::time_t now = std::time(nullptr);
+
+    if (const std::time_t scheduled = task.getRecurrency().getDatetimeForAction(); now >= scheduled) {
+        run(task).detach();
         return true;
     } else {
-        std::cout << "Thread (tID: " << task.getThreadId() << ") will run task \"" << task.getName() << "\" in " << task.getRecurrency().getDatetimeForAction() - std::time(nullptr) << std::endl;
+        std::cout << "Thread (tID: " << task.getThreadId()
+                  << ") will run task \"" << task.getName()
+                  << "\" in " << scheduled - now << " seconds\n";
         return false;
-    };
-};
+    }
+}
