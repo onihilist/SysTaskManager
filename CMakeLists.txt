@@ -8,8 +8,6 @@ add_executable(SysTaskThreaded main.cpp
         src/QueueManager.cpp
         includes/TaskInfo.hpp
         src/TaskInfo.cpp
-        includes/RecurrenceParser.hpp
-        src/RecurrenceParser.cpp
         includes/Recurrency.hpp
         includes/TaskRunner.hpp
         src/TaskRunner.cpp)

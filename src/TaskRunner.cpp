@@ -1,50 +1,57 @@
-//
-// Created by onihilist on 23/09/2025.
-//
 
-#include "../includes/QueueManager.hpp"
 #include "../includes/TaskRunner.hpp"
-#include "../includes/TaskInfo.hpp"
+#include <chrono>
 #include <iostream>
-#include <thread>
-#include <mutex>
+#include <vector>
 
-TaskRunner::TaskRunner() {
+TaskRunner::TaskRunner() : running(false) {
     std::cout << "TaskRunner constructed" << std::endl;
 }
 
 TaskRunner::~TaskRunner() {
+    stop();
     std::cout << "TaskRunner destroyed" << std::endl;
 }
 
-std::thread TaskRunner::run(QueueManager &qm) {
-    TaskInfo task = qm.getTaskQueue().front();
-    std::string name = qm.getTaskQueue().front().getName();
-    std::time_t scheduled = qm.getTaskQueue().front().getRecurrency().getDatetimeForAction();
+void TaskRunner::start(QueueManager &queueManager) {
+    running = true;
 
-    std::thread t([&task, scheduled] {
-        if (const std::time_t now = std::time(nullptr); scheduled > now) {
-            std::this_thread::sleep_for(std::chrono::seconds(scheduled - now));
+    schedulerThread = std::thread([&queueManager, this]() {
+        std::vector<std::thread> activeThreads;
+
+        while (running) {
+            auto &queue = queueManager.getTaskQueue();
+
+            size_t queueSize = queue.size();
+            for (size_t i = 0; i < queueSize; ++i) {
+                auto taskPtr = queue.front();
+                queue.pop();
+
+                std::time_t now = std::time(nullptr);
+
+                if (taskPtr->getRecurrency().getDatetimeForAction() <= now) {
+                    activeThreads.emplace_back([taskPtr]() {
+                        taskPtr->setThreadId(std::this_thread::get_id());
+                        std::cout << "Thread (tID: " << std::this_thread::get_id()
+                                  << ") is running task " << taskPtr->getName() << "..." << std::endl;
+                    });
+                } else {
+                    queue.push(taskPtr);
+                }
+            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
-        task.setThreadId(std::this_thread::get_id());
-        std::cout << "Thread (tID: " << std::this_thread::get_id()
-                  << ") is running task " << task.getName() << "..." << std::endl;
+        for (auto &t : activeThreads) {
+            if (t.joinable())
+                t.join();
+        }
     });
-
-    return t;
 }
 
-bool TaskRunner::isTimeToRun(TaskInfo &task, QueueManager &qm) {
-    const std::time_t now = std::time(nullptr);
-
-    if (const std::time_t scheduled = task.getRecurrency().getDatetimeForAction(); now >= scheduled) {
-        run(qm).detach();
-        return true;
-    } else {
-        std::cout << "Thread (tID: " << task.getThreadId()
-                  << ") will run task \"" << task.getName()
-                  << "\" in " << scheduled - now << " seconds\n";
-        return false;
-    }
+void TaskRunner::stop() {
+    running = false;
+    if (schedulerThread.joinable())
+        schedulerThread.join();
 }

@@ -1,25 +1,23 @@
+
 #ifndef QUEUEMANAGER_HPP
 #define QUEUEMANAGER_HPP
 
 #include <queue>
-
-
-class TaskInfo;
+#include <memory>
+#include "TaskInfo.hpp"
 
 class QueueManager {
 private:
-    std::queue<TaskInfo> taskQueue;
+    std::queue<std::shared_ptr<TaskInfo>> taskQueue;
 
 public:
-    QueueManager();
-    ~QueueManager();
+    QueueManager() = default;
+    ~QueueManager() = default;
 
-    bool addTaskToQueue(TaskInfo&& task);
+    bool addTaskToQueue(std::shared_ptr<TaskInfo> task);
     bool removeTaskFromQueue();
 
-    std::queue<TaskInfo>& getTaskQueue() {
-        return taskQueue;
-    }
+    std::queue<std::shared_ptr<TaskInfo>>& getTaskQueue() { return taskQueue; }
 };
 
 #endif // QUEUEMANAGER_HPP

@@ -1,19 +1,23 @@
-//
-// Created by onihilist on 23/09/2025.
-//
 
 #ifndef TASKRUNNER_HPP
 #define TASKRUNNER_HPP
 
-#include "../includes/TaskInfo.hpp"
+#include "QueueManager.hpp"
+#include "TaskInfo.hpp"
+#include <thread>
+#include <atomic>
 
 class TaskRunner {
-    public:
-        TaskRunner();
-        ~TaskRunner();
+public:
+    TaskRunner();
+    ~TaskRunner();
 
-        static std::thread run(QueueManager &qm);
-        static bool isTimeToRun(TaskInfo &task, QueueManager &qm);
+    void start(QueueManager &queueManager);
+    void stop();
+
+private:
+    std::thread schedulerThread;
+    std::atomic<bool> running;
 };
 
-#endif //TASKRUNNER_HPP
+#endif // TASKRUNNER_HPP
