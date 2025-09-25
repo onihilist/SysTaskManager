@@ -1,31 +1,25 @@
-//
-// Created by onihilist on 22/09/2025.
-//
-
 #ifndef QUEUEMANAGER_HPP
 #define QUEUEMANAGER_HPP
 
 #include <queue>
 
-#include "TaskInfo.hpp"
 
-using namespace std;
+class TaskInfo;
 
 class QueueManager {
+private:
+    std::queue<TaskInfo> taskQueue;
 
-    private:
-        std::queue<TaskInfo> taskQueue;
+public:
+    QueueManager();
+    ~QueueManager();
 
-    public:
-        QueueManager();
-        ~QueueManager();
+    bool addTaskToQueue(TaskInfo&& task);
+    bool removeTaskFromQueue();
 
-        bool addTaskToQueue(TaskInfo task);
-        bool removeTaskFromQueue();
-        std::queue<TaskInfo> getTaskQueue() {
-            return taskQueue;
-        };
-
+    std::queue<TaskInfo>& getTaskQueue() {
+        return taskQueue;
+    }
 };
 
-#endif //QUEUEMANAGER_HPP
+#endif // QUEUEMANAGER_HPP

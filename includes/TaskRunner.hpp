@@ -12,8 +12,8 @@ class TaskRunner {
         TaskRunner();
         ~TaskRunner();
 
-        static std::thread run(TaskInfo &task);
-        static bool isTimeToRun(TaskInfo &task);
+        static std::thread run(QueueManager &qm);
+        static bool isTimeToRun(TaskInfo &task, QueueManager &qm);
 };
 
 #endif //TASKRUNNER_HPP

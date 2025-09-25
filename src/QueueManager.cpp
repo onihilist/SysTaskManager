@@ -1,26 +1,29 @@
-//
-// Created by onihilist on 22/09/2025.
-//
-
 #include "../includes/QueueManager.hpp"
 #include "../includes/TaskInfo.hpp"
+#include <iostream>
 
-bool addTaskToQueue(TaskInfo task) {
+QueueManager::QueueManager() {}
+QueueManager::~QueueManager() {}
+
+bool QueueManager::addTaskToQueue(TaskInfo&& task) {
     try {
-        QueueManager().getTaskQueue().push(task);
+        taskQueue.push(std::move(task));
         return true;
-    } catch (exception& e) {
+    } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return false;
     }
-};
+}
 
-bool removeTaskFromQueue() {
+bool QueueManager::removeTaskFromQueue() {
     try {
-        QueueManager().getTaskQueue().pop();
-        return true;
-    } catch (exception& e) {
+        if (!taskQueue.empty()) {
+            taskQueue.pop();
+            return true;
+        }
+        return false;
+    } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return false;
     }
-};
+}

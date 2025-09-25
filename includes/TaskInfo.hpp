@@ -9,6 +9,7 @@
 #include <string>
 #include <thread>
 
+#include "QueueManager.hpp"
 #include "Recurrency.hpp"
 
 using namespace std;
@@ -29,14 +30,15 @@ class TaskInfo {
 
     public:
 
-        static TaskInfo createTask(
+        static bool createTask(
             const std::string &type,
             const std::string &name,
             const std::string &command,
             const int days,
             const int hours,
             const int minutes,
-            const int seconds);
+            const int seconds,
+            QueueManager &queueManager);
 
         TaskInfo(
             const int id,
