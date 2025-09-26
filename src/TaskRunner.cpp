@@ -34,6 +34,7 @@ void TaskRunner::start(QueueManager &queueManager) {
                         taskPtr->setThreadId(std::this_thread::get_id());
                         std::cout << "Thread (tID: " << std::this_thread::get_id()
                                   << ") is running task " << taskPtr->getName() << "..." << std::endl;
+                        taskPtr->getCommand()();
                     });
                 } else {
                     queue.push(taskPtr);

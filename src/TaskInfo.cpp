@@ -6,7 +6,7 @@
 
 bool TaskInfo::createTask(const std::string &type,
                           const std::string &name,
-                          const std::string &command,
+                          std::function<void()> command,
                           const int days,
                           const int hours,
                           const int minutes,

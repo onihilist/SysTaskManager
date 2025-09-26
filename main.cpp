@@ -11,14 +11,14 @@ int main() {
     TaskInfo::createTask(
         "immediate",
         "InitTask",
-        "ls",
+        []() {std::cout << "Hello World!\n";},
         0, 0, 0, 5,
         queueManager);
     TaskInfo::createTask(
         "immediate",
         "UnusedTask",
-        "ls",
-        0, 0, 0, 15,
+        []() {std::cout << "Hello from task UnusedTask !\n";},
+        0, 0, 0, 25,
         queueManager);
 
     taskRunner.start(queueManager);

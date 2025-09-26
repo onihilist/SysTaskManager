@@ -5,6 +5,7 @@
 #include <string>
 #include <thread>
 #include <ctime>
+#include <functional>
 #include <vector>
 #include <iostream>
 
@@ -29,7 +30,7 @@ public:
              std::string priority,
              std::string status,
              std::string result,
-             std::string command)
+             std::function<void(void)> command)
         : id(id), threadId(tid), name(std::move(name)), description(std::move(description)),
           recurrency(std::move(rec)), priority(std::move(priority)),
           status(std::move(status)), result(std::move(result)), command(std::move(command))
@@ -52,13 +53,14 @@ public:
 
     static bool createTask(const std::string &type,
                            const std::string &name,
-                           const std::string &command,
+                           std::function<void()> command,
                            int days, int hours, int minutes, int seconds,
-                           class QueueManager &queueManager);
+                           QueueManager &queueManager);
 
-    void setThreadId(std::thread::id tid) { threadId = tid; }
+    void setThreadId(const std::thread::id tid) { threadId = tid; }
     const std::string& getName() const { return name; }
     const Recurrency& getRecurrency() const { return recurrency; }
+    const std::function<void(void)>& getCommand() const { return command; }
 
 private:
     int id;
@@ -69,7 +71,7 @@ private:
     std::string priority;
     std::string status;
     std::string result;
-    std::string command;
+    std::remove_reference_t<std::function<void()> &> command;
 };
 
 #endif // TASKINFO_HPP
