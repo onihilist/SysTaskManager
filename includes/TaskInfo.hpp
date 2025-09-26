@@ -1,3 +1,4 @@
+
 #ifndef TASKINFO_HPP
 #define TASKINFO_HPP
 
@@ -16,7 +17,7 @@ struct Recurrency {
     std::time_t getDatetimeForAction() const { return datetimeForAction; }
 };
 
-class QueueManager; // forward declaration
+class QueueManager;
 
 class TaskInfo {
 public:

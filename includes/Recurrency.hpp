@@ -1,6 +1,3 @@
-//
-// Created by onihilist on 23/09/2025.
-//
 
 #ifndef RECURRENCY_HPP
 #define RECURRENCY_HPP

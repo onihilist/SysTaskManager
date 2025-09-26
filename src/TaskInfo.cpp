@@ -7,10 +7,17 @@
 bool TaskInfo::createTask(const std::string &type,
                           const std::string &name,
                           const std::string &command,
-                          int days, int hours, int minutes, int seconds,
+                          const int days,
+                          const int hours,
+                          const int minutes,
+                          const int seconds,
                           QueueManager &queueManager) {
-    std::time_t now = std::time(nullptr);
-    std::time_t scheduled = now + days*24*3600 + hours*3600 + minutes*60 + seconds;
+    const std::time_t now = std::time(nullptr);
+    std::time_t scheduled = now
+                            + days*24*3600
+                            + hours*3600
+                            + minutes*60
+                            + seconds;
 
     try {
         const auto taskPtr = std::make_shared<TaskInfo>(
